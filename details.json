@@ -7,13 +7,15 @@
     "Gender": {
       "text" : "מין:",
       "Genders" :
-      {"Male": "זכר",
+      {"Unknown": "בחר",
+      "Male": "זכר",
       "Female": "נקבה"}
     },
     "Email": "אימייל",
     "Faculty": {
       "text" : "מעוניין ללמוד בפקולטה:",
       "Faculties" : {
+        "Unknown": "בחר",
         "Art": "אמנויות",
         "Engineering": "הנדסה",
         "Exact Sciences": "מדעים מדויקים",

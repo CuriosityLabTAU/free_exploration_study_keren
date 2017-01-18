@@ -10,7 +10,7 @@ from kivy.storage.jsonstore import JsonStore
 
 
 class DetailsForm(BoxLayout):
-    what_to_include = ['age', 'email', 'gender']    # 'faculty',
+    what_to_include = ['age', 'email', 'gender', 'faculty']
 
     details = {}
     the_app = None
@@ -92,15 +92,14 @@ class DetailsForm(BoxLayout):
             layout.add_widget(BoxLayout())
 
 
-        # === second line ===
-        # layout.add_widget(BoxLayout(size_hint_x=0.2))
-# gender spinner
         print(dict['Gender']['Genders'])
-        self.gender_spinner = LoggedSpinner(text=dict['Gender']['Genders'][0],
+        self.gender_spinner = LoggedSpinner(#text=dict['Gender']['Genders'][0],
                                             values=dict['Gender']['Genders'],
-                                            size=(50, 50), font_name="fonts/the_font.ttf",
-                                            font_size=40, size_hint_y=0.4,
-                                            option_cls = MySpinnerOption)
+                                            size=(50, 50),
+                                            font_name="fonts/the_font.ttf",
+                                            font_size=40,
+                                            size_hint_y=0.4,
+                                            option_cls=MySpinnerOption)
         self.gender_spinner.name = 'gender'
         self.gender_spinner.bind(text=self.gender_spinner.on_spinner_text)
         if 'gender' in self.what_to_include:
@@ -109,13 +108,29 @@ class DetailsForm(BoxLayout):
                 Label(text=dict['Gender']['text'], font_size=30,
                       font_name="fonts/the_font.ttf", halign='right',
                       size_hint_y=0.2,
-                      color=[0,0,0,1]))
+                      color=[0, 0, 0, 1]))
         else:
             layout.add_widget(BoxLayout())
             layout.add_widget(BoxLayout(size_hint_y=0.2))
 
+    # === second line ===
+        # layout.add_widget(BoxLayout(size_hint_x=0.2))
+# gender spinner
+        layout.add_widget(BoxLayout())
+        layout.add_widget(BoxLayout())
+        layout.add_widget(BoxLayout(size_hint_x=1.5))
+        temp_faculty = []
+        for f in range(len(dict['Faculty']['Faculties'])):
+            if f == 0:
+                temp_faculty.append(dict['Faculty']['Faculties'][4])
+            elif f == 4:
+                temp_faculty.append(dict['Faculty']['Faculties'][0])
+            else:
+                temp_faculty.append(dict['Faculty']['Faculties'][f])
+        dict['Faculty']['Faculties'] = temp_faculty
+
         # faculty spinner
-        self.faculty_spinner = LoggedSpinner(text="הסדנה",
+        self.faculty_spinner = LoggedSpinner(#text="בחר",
                                              values=dict['Faculty']['Faculties'],
                                              size=(50, 50),
                                              font_name="fonts/the_font.ttf",
@@ -137,18 +152,12 @@ class DetailsForm(BoxLayout):
 
 
         # === third line ===
-        layout.add_widget(BoxLayout(size_hint_x=0.2))
-        layout.add_widget(BoxLayout())
-        layout.add_widget(
-            Label(text="ךתופתתשה לע הדות", font_size=36,
-                  color=[0,0,0,1],
-                  font_name="fonts/the_font.ttf", halign='right', size_hint_x=1.5))
-
-        layout.add_widget(BoxLayout())
-        layout.add_widget(BoxLayout())
 
 
         # === last line ===
+        layout.add_widget(BoxLayout(size_hint_x=0.2))
+        layout.add_widget(BoxLayout())
+
         layout.add_widget(BoxLayout(size_hint_x=0.2))
         end_button = Button(background_color=[0,0.71,1,1],
                             background_normal="",
@@ -157,6 +166,13 @@ class DetailsForm(BoxLayout):
                             halign='right',on_press=self.next)
         end_button.bind(on_press=self.save)
         layout.add_widget(end_button)
+        layout.add_widget(
+            Label(text="ךתופתתשה לע הדות", font_size=36,
+                  color=[0, 0, 0, 1],
+                  font_name="fonts/the_font.ttf", halign='right', size_hint_x=1.5))
+
+        # layout.add_widget(BoxLayout())
+        # layout.add_widget(BoxLayout())
         layout.add_widget(BoxLayout())
         layout.add_widget(BoxLayout())
         layout.add_widget(BoxLayout())
