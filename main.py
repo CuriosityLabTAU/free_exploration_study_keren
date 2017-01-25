@@ -24,6 +24,7 @@ class CuriosityApp(App):
     float_layout = None
 
     cei2 = None
+    bfi = None
     learn = None
 
     def build(self):
@@ -34,10 +35,13 @@ class CuriosityApp(App):
         self.cg = CuriosityGame(self)
         self.cf = ConsentForm(self)
 
-        self.cei2 = CEI2()
+        self.cei2 = CEI2('questions.json')
+        self.bfi  = CEI2('more_questions.json')
         self.qf = []
         for p in range(0, len(self.cei2.page_dict)):
             self.qf.append(QuestionsForm(self, self.cei2.page_dict[p]))
+        for p in range(0, len(self.bfi.page_dict)):
+            self.qf.append(QuestionsForm(self, self.bfi.page_dict[p]))
 
         self.learn = Learning(self)
         self.lf = [LearningForm(self), LearningForm(self)]

@@ -14,10 +14,10 @@ class CEI2():
     dict = None
     page_dict = None
 
-    def __init__(self):
+    def __init__(self, question_filename='question.json'):
         self.dict = {'q_in_page': [], 'qu_title': "", 'qu_description': "", 'ques': {},
                 'ans': {}, 'next_button': "", 'prev_button': ""}
-        store = JsonStore('questions.json', encoding='utf-8').get('questionnaire')
+        store = JsonStore(question_filename, encoding='utf-8').get('questionnaire')
 
         for key, value in store.items():
             if key in ['qu_title', 'next_button', 'prev_button', 'questions']:
