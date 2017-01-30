@@ -39,6 +39,8 @@ class DetailsForm(BoxLayout):
                 for kqa, qa in value.items():
                     if kqa=='text':
                         dict[key][kqa] = qa[::-1]
+                    elif kqa == 'default':
+                        dict[key][kqa] = qa[::-1]
                     elif kqa != 'ages':
                         dict[key][kqa]=[]
                         for k,v in value[kqa].items():
@@ -50,75 +52,28 @@ class DetailsForm(BoxLayout):
                             dict[key][kqa].append(str(age))
                             age += 1
 
-        layoutup = BoxLayout(orientation='vertical')
-        layoutup.add_widget(BoxLayout(size_hint_y=0.3))
-        layoutup.add_widget(
-             Label(text=dict['details_title'], 
-                   font_size=50, font_name="fonts/the_font.ttf",
-                   halign='right', size_hint_y=0.2,
-                   color=[0,0,0,1]))
+        # definitions of all the GUI
+        y_size = 0.2
 
-        layout = GridLayout(cols=7, rows=8)
-
-        # === first line ===
-        layout.add_widget(BoxLayout(size_hint_x=0.2, size_hint_y=0.4))
-
-        self.age_text = LoggedTextInput(size_hint_x=0.5, font_size=40, input_filter='int', size_hint_y=0.4)
+        self.age_text = LoggedTextInput(size_hint_x=0.5, font_size=40, input_filter='int', size_hint_y=y_size)
         self.age_text.bind(text=self.age_text.on_text_change)
         self.age_text.name = 'age'
-        if 'age' in self.what_to_include:
-            layout.add_widget(self.age_text)
-            layout.add_widget(
-                Label(text=dict['Age'], font_size=30,
-                      font_name="fonts/the_font.ttf", halign='right',
-                      size_hint_y=0.4,
-                      color=[0,0,0,1]))
-        else:
-            layout.add_widget(BoxLayout())
-            layout.add_widget(BoxLayout())
 
-        self.email_text = LoggedTextInput(size_hint_x=2, font_size=32, size_hint_y=0.4)
+        self.email_text = LoggedTextInput(size_hint_x=2, font_size=32, size_hint_y=y_size)
         self.email_text.bind(text=self.email_text.on_text_change)
         self.email_text.name = 'email'
-        if 'email' in self.what_to_include:
-            layout.add_widget(self.email_text)
-            layout.add_widget(
-                Label(text=dict['Email'], font_size=30,
-                      font_name="fonts/the_font.ttf", halign='right',
-                      size_hint_y=0.4,
-                      color=[0,0,0,1]))
-        else:
-            layout.add_widget(BoxLayout())
-            layout.add_widget(BoxLayout())
-
 
         print(dict['Gender']['Genders'])
-        self.gender_spinner = LoggedSpinner(#text=dict['Gender']['Genders'][0],
+        self.gender_spinner = LoggedSpinner(text=dict['Gender']['default'],
                                             values=dict['Gender']['Genders'],
                                             size=(50, 50),
                                             font_name="fonts/the_font.ttf",
                                             font_size=40,
-                                            size_hint_y=0.4,
+                                            size_hint_y=y_size,
                                             option_cls=MySpinnerOption)
         self.gender_spinner.name = 'gender'
         self.gender_spinner.bind(text=self.gender_spinner.on_spinner_text)
-        if 'gender' in self.what_to_include:
-            layout.add_widget(self.gender_spinner)
-            layout.add_widget(
-                Label(text=dict['Gender']['text'], font_size=30,
-                      font_name="fonts/the_font.ttf", halign='right',
-                      size_hint_y=0.2,
-                      color=[0, 0, 0, 1]))
-        else:
-            layout.add_widget(BoxLayout())
-            layout.add_widget(BoxLayout(size_hint_y=0.2))
 
-    # === second line ===
-        # layout.add_widget(BoxLayout(size_hint_x=0.2))
-# gender spinner
-        layout.add_widget(BoxLayout())
-        layout.add_widget(BoxLayout())
-        layout.add_widget(BoxLayout(size_hint_x=1.5))
         temp_faculty = []
         for f in range(len(dict['Faculty']['Faculties'])):
             if f == 0:
@@ -130,64 +85,126 @@ class DetailsForm(BoxLayout):
         dict['Faculty']['Faculties'] = temp_faculty
 
         # faculty spinner
-        self.faculty_spinner = LoggedSpinner(#text="בחר",
-                                             values=dict['Faculty']['Faculties'],
-                                             size=(50, 50),
-                                             font_name="fonts/the_font.ttf",
-                                             font_size=30,
-                                             option_cls = MySpinnerOption,
-                                             size_hint_x=0.5)
+        self.faculty_spinner = LoggedSpinner(text=dict['Faculty']['default'],
+            values=dict['Faculty']['Faculties'],
+            size=(50, 50),
+            font_name="fonts/the_font.ttf",
+            font_size=30,
+            option_cls=MySpinnerOption,
+            size_hint_y=y_size)
         self.faculty_spinner.name = 'faculty'
         self.faculty_spinner.bind(text=self.faculty_spinner.on_spinner_text)
+
+        end_button = Button(background_color=[0, 0.71, 1, 1],
+                            background_normal="",
+                            text=dict['end_button'], font_size=30,
+                            font_name="fonts/the_font.ttf",
+                            halign='right', on_press=self.next)
+
+        end_button.bind(on_press=self.save)  # layout of the GUI
+
+        layoutup = BoxLayout(orientation='vertical')
+        layoutup.add_widget(BoxLayout(size_hint_y=y_size))
+        layoutup.add_widget(
+             Label(text=dict['details_title'], 
+                   font_size=50, font_name="fonts/the_font.ttf",
+                   halign='right', size_hint_y=y_size,
+                   color=[0,0,0,1]))
+
+        layout = GridLayout(cols=8, rows=6)
+
+        # === first line ===
+        layout.add_widget(end_button)
+        layout.add_widget(BoxLayout(size_hint_x=0.1, size_hint_y=y_size))
+
+        if 'age' in self.what_to_include:
+            layout.add_widget(self.age_text)
+            layout.add_widget(
+                Label(text=dict['Age'], font_size=30,
+                      font_name="fonts/the_font.ttf", halign='right',
+                      size_hint_y=y_size,
+                      color=[0,0,0,1]))
+        else:
+            layout.add_widget(BoxLayout())
+            layout.add_widget(BoxLayout())
+
+        if 'email' in self.what_to_include:
+            layout.add_widget(self.email_text)
+            # layout.add_widget(BoxLayout(size_hint_x=1, size_hint_y=1))
+            layout.add_widget(
+                Label(text=dict['Email'], font_size=30,
+                      font_name="fonts/the_font.ttf", halign='right',
+                      size_hint_y=y_size,
+                      color=[0, 0, 0, 1]))
+
+        else:
+            layout.add_widget(BoxLayout())
+            layout.add_widget(BoxLayout())
+
         if 'faculty' in self.what_to_include:
             layout.add_widget(self.faculty_spinner)
             layout.add_widget(
                 Label(text=dict['Faculty']['text'],
                       font_size=30, font_name="fonts/the_font.ttf",
                       halign='right', size_hint_x=1.5,
-                      color=[0,0,0,1]))
+                      color=[0, 0, 0, 1]))
         else:
             layout.add_widget(BoxLayout())
             layout.add_widget(BoxLayout(size_hint_x=1.5))
 
+    # === second line ===
+        layout.add_widget(BoxLayout(size_hint_y=y_size))
+        layout.add_widget(BoxLayout(size_hint_x=0.1, size_hint_y=y_size))
+        if 'gender' in self.what_to_include:
+            layout.add_widget(self.gender_spinner)
+            layout.add_widget(
+                Label(text=dict['Gender']['text'], font_size=30,
+                      font_name="fonts/the_font.ttf", halign='right',
+                      size_hint_y=y_size,
+                      color=[0, 0, 0, 1]))
+        else:
+            layout.add_widget(BoxLayout())
+            layout.add_widget(BoxLayout(size_hint_y=y_size))
 
-        # === third line ===
+        layout.add_widget(BoxLayout())
+        layout.add_widget(BoxLayout())
+        layout.add_widget(BoxLayout(size_hint_x=1.5))
+        layout.add_widget(BoxLayout(size_hint_x=1.5))
 
+        # === space lines ===
+        for lines in range(2):
+            for space_line in range(8):
+                layout.add_widget(BoxLayout(size_hint_x=0.1, size_hint_y=1))
+                # layout.add_widget(BoxLayout(size_hint_y=1))
 
         # === last line ===
         layout.add_widget(BoxLayout(size_hint_x=0.2))
+        layout.add_widget(BoxLayout(size_hint_x=0.1, size_hint_y=y_size))
         layout.add_widget(BoxLayout())
 
         layout.add_widget(BoxLayout(size_hint_x=0.2))
-        end_button = Button(background_color=[0,0.71,1,1],
-                            background_normal="",
-                            text=dict['end_button'], font_size=30,
-                            font_name="fonts/the_font.ttf",
-                            halign='right',on_press=self.next)
-        end_button.bind(on_press=self.save)
-        layout.add_widget(end_button)
+
         layout.add_widget(
             Label(text="ךתופתתשה לע הדות", font_size=36,
                   color=[0, 0, 0, 1],
                   font_name="fonts/the_font.ttf", halign='right', size_hint_x=1.5))
 
-        # layout.add_widget(BoxLayout())
-        # layout.add_widget(BoxLayout())
-        layout.add_widget(BoxLayout())
         layout.add_widget(BoxLayout())
         layout.add_widget(BoxLayout())
 
-        # === space line ===
-        layout.add_widget(BoxLayout(size_hint_y=0.1))
+        # === space lines ===
+        for lines in range(1):
+            for space_line in range(7):
+                layout.add_widget(BoxLayout(size_hint_x=0.1, size_hint_y=1))
+                # layout.add_widget(BoxLayout(size_hint_y=1))
+        # ======= end =======
+
         layoutup.add_widget(layout)
-
         self.add_widget(layoutup)
         self.start()
 
     def start(self):
         self.email_text.text = ""
-        self.faculty_spinner.text = self.faculty_spinner.values[0].encode('utf-8')
-        self.gender_spinner.text = self.gender_spinner.values[0].encode('utf-8')
         self.age_text.text = ""
 
     def _update_rect(self, instance, value):

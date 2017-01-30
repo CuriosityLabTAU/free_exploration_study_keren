@@ -6,16 +6,16 @@
     "Age": "גיל:",
     "Gender": {
       "text" : "מין:",
+      "default": "בחר",
       "Genders" :
-      {"Unknown": "בחר",
-      "Male": "זכר",
+      {"Male": "זכר",
       "Female": "נקבה"}
     },
     "Email": "אימייל",
     "Faculty": {
       "text" : "מעוניין ללמוד בפקולטה:",
+      "default": "בחר",
       "Faculties" : {
-        "Unknown": "בחר",
         "Art": "אמנויות",
         "Engineering": "הנדסה",
         "Exact Sciences": "מדעים מדויקים",
