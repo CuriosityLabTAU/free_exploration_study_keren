@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$USER_HOME$/projects/free_exploration_game/.idea/cg_thegame.iml" filepath="$USER_HOME$/projects/free_exploration_game/.idea/cg_thegame.iml" />
-      <module fileurl="file://$USER_HOME$/projects/free_exploration_study_keren/.idea/free_exploration_game.iml" filepath="$USER_HOME$/projects/free_exploration_study_keren/.idea/free_exploration_game.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/free_exploration_study_keren.iml" filepath="$PROJECT_DIR$/.idea/free_exploration_study_keren.iml" />
     </modules>
   </component>
 </project>
