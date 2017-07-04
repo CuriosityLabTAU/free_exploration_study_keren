@@ -77,9 +77,10 @@ class CuriosityApp(App):
         screen.add_widget(self.lf[1])
         self.sm.add_widget(screen)
 
-        screen = Screen(name="details")
-        screen.add_widget(self.df)
-        self.sm.add_widget(screen)
+        # --- youth: no need for details
+        # screen = Screen(name="details")
+        # screen.add_widget(self.df)
+        # self.sm.add_widget(screen)
 
         screen = Screen(name="final")
         screen.bind(on_enter=self.ff.start)
