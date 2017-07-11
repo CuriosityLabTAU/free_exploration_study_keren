@@ -12,6 +12,10 @@ from curiosity_score import *
 from kivy_communication import KL
 
 
+class ZeroScreen(Screen):
+    pass
+
+
 class CuriosityApp(App):
     sm = None
     cg = None
@@ -31,6 +35,8 @@ class CuriosityApp(App):
         # initialize logger
         #KL.start([DataMode.file, DataMode.communication]) #, "/sdcard/curiosity/", the_ip='127.0.0.1')#self.user_data_dir)
         KL.start([DataMode.file, DataMode.communication, DataMode.ros], self.user_data_dir)
+
+        self.zero = ZeroScreen(name='zero')
 
         self.cg = CuriosityGame(self)
         self.cf = ConsentForm(self)
@@ -55,9 +61,11 @@ class CuriosityApp(App):
 
         self.sm = ScreenManager()
 
-        screen = Screen(name='consent')
-        screen.add_widget(self.cf)
-        self.sm.add_widget(screen)
+        self.sm.add_widget(self.zero)
+
+        # screen = Screen(name='consent')
+        # screen.add_widget(self.cf)
+        # self.sm.add_widget(screen)
 
         screen = Screen(name='thegame')
         screen.add_widget(self.cg.the_widget)
@@ -97,10 +105,14 @@ class CuriosityApp(App):
             qf.start()
         self.df.start()
         self.score.init_score()
-        self.sm.current = "consent"
+        self.sm.current = "zero"
 
     def on_pause(self):
         return True
+
+    def press_start(self, pre_post):
+        self.cg.start()
+        self.sm.current = self.sm.next()
 
 if __name__ == '__main__':
     CuriosityApp().run()
