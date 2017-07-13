@@ -62,13 +62,13 @@ class Learning():
                 k_page_ques = 0
 
         if len(self.page_questions) == 0:
-            self.the_app.sm.current = "details"
+            self.the_app.sm.current = "final"
         if len(self.page_questions) > 0:
-            self.the_app.lf[0].next_page = "details"
+            self.the_app.lf[0].next_page = "final"
             self.the_app.lf[0].start(self.page_questions[0])
         if len(self.page_questions) > 1:
             self.the_app.lf[0].next_page = "learning_1"
-            self.the_app.lf[1].next_page = "details"
+            self.the_app.lf[1].next_page = "final"
             self.the_app.lf[1].start(self.page_questions[1])
 
 

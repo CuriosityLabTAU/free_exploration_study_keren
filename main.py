@@ -36,7 +36,7 @@ class CuriosityApp(App):
         #KL.start([DataMode.file, DataMode.communication]) #, "/sdcard/curiosity/", the_ip='127.0.0.1')#self.user_data_dir)
         KL.start([DataMode.file, DataMode.communication, DataMode.ros], self.user_data_dir)
 
-        self.zero = ZeroScreen(name='zero')
+        self.zero = ZeroScreen(name='zero_screen')
 
         self.cg = CuriosityGame(self)
         self.cf = ConsentForm(self)
@@ -105,7 +105,7 @@ class CuriosityApp(App):
             qf.start()
         self.df.start()
         self.score.init_score()
-        self.sm.current = "zero"
+        self.sm.current = "zero_screen"
 
     def on_pause(self):
         return True
