@@ -13,7 +13,10 @@ from kivy_communication import KL
 
 
 class ZeroScreen(Screen):
-    pass
+
+    def start(self):
+        self.ids['subject_id'].bind(text=self.ids['subject_id'].on_text_change)
+
 
 
 class CuriosityApp(App):
@@ -37,6 +40,7 @@ class CuriosityApp(App):
         KL.start([DataMode.file, DataMode.communication, DataMode.ros], self.user_data_dir)
 
         self.zero = ZeroScreen(name='zero_screen')
+        self.zero.start()
 
         self.cg = CuriosityGame(self)
         self.cf = ConsentForm(self)
