@@ -6,7 +6,7 @@ from kivy.graphics import *
 from kivy.storage.jsonstore import JsonStore
 from kivy.properties import ObjectProperty
 from hebrew_management import HebrewManagement
-from kivy_logger import *
+from kivy_communication.kivy_logger import *
 
 
 class FinalForm(BoxLayout):
