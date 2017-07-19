@@ -6,6 +6,7 @@ from kivy.graphics import *
 from kivy.storage.jsonstore import JsonStore
 from kivy.properties import ObjectProperty
 from hebrew_management import HebrewManagement
+from kivy_logger import *
 
 
 class FinalForm(BoxLayout):
@@ -69,4 +70,5 @@ class FinalForm(BoxLayout):
         self.rect.size = instance.size
 
     def next(self, pars):
-        self.the_app.start()
+        KL.log.insert(action=LogAction.data, obj='game', comment='the_end', sync=True)
+        self.the_app.stop()

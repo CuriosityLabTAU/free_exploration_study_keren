@@ -1,7 +1,7 @@
 [app]
 
 # (str) Title of your application
-title = CuriosityApp
+title = Game 2
 
 # (str) Package name
 package.name = CuriosityApp
