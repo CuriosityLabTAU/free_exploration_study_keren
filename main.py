@@ -77,24 +77,24 @@ class CuriosityApp(App):
         screen.add_widget(self.cf)
         self.sm.add_widget(screen)
 
-        # screen = Screen(name='framing')
-        # screen.add_widget(self.framing_form)
-        # self.sm.add_widget(screen)
-        #
-        # screen = Screen(name='thegame')
-        # screen.add_widget(self.cg.the_widget)
-        # self.sm.add_widget(screen)
-        #
-        # for kqf in range(0, len(self.qf)):
-        #     screen = Screen(name="question"+str(kqf))
-        #     screen.add_widget(self.qf[kqf])
-        #     self.sm.add_widget(screen)
-        #
-        # for i, ilf in enumerate(self.lf):
-        #     screen = Screen(name="learning_" + str(i))
-        #     screen.add_widget(ilf)
-        #     screen.bind(on_pre_enter=self.learn.start)
-        #     self.sm.add_widget(screen)
+        screen = Screen(name='framing')
+        screen.add_widget(self.framing_form)
+        self.sm.add_widget(screen)
+
+        screen = Screen(name='thegame')
+        screen.add_widget(self.cg.the_widget)
+        self.sm.add_widget(screen)
+
+        for kqf in range(0, len(self.qf)):
+            screen = Screen(name="question"+str(kqf))
+            screen.add_widget(self.qf[kqf])
+            self.sm.add_widget(screen)
+
+        for i, ilf in enumerate(self.lf):
+            screen = Screen(name="learning_" + str(i))
+            screen.add_widget(ilf)
+            screen.bind(on_pre_enter=self.learn.start)
+            self.sm.add_widget(screen)
 
         screen = Screen(name="details_personal")
         screen.add_widget(self.dfp)
