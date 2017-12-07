@@ -13,6 +13,7 @@ class Learning():
     questions = []
     page_questions = []
 
+    max_number_questions = 10
 
     def __init__(self, the_app):
         self.the_app = the_app
@@ -63,13 +64,13 @@ class Learning():
 
         if len(self.page_questions) == 0:
             self.the_app.sm.current = "details"
-        if len(self.page_questions) > 0:
-            self.the_app.lf[0].next_page = "details"
-            self.the_app.lf[0].start(self.page_questions[0])
-        if len(self.page_questions) > 1:
-            self.the_app.lf[0].next_page = "learning_1"
-            self.the_app.lf[1].next_page = "details"
-            self.the_app.lf[1].start(self.page_questions[1])
+        for i, ifl in enumerate(self.the_app.lf):
+            if i == (len(self.page_questions)-1):
+                ifl.next_page = "details"
+                ifl.start(self.page_questions[-1])
+            elif i < len(self.page_questions):
+                ifl.next_page = "learning_" + str(i+1)
+                ifl.start(self.page_questions[i])
 
 
 class LearningForm(BoxLayout):

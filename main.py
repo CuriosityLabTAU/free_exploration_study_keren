@@ -46,7 +46,9 @@ class CuriosityApp(App):
             self.qf.append(QuestionsForm(self, self.bfi.page_dict[p]))
 
         self.learn = Learning(self)
-        self.lf = [LearningForm(self), LearningForm(self)]
+        self.lf = [LearningForm(self)]
+        for i in range(1, self.learn.max_number_questions / self.lf[0].q_per_page):
+            self.lf.append(LearningForm(self))
 
         self.df = DetailsForm(self)
         self.ff = FinalForm(self)
@@ -70,14 +72,11 @@ class CuriosityApp(App):
             screen.add_widget(self.qf[kqf])
             self.sm.add_widget(screen)
 
-        screen = Screen(name="learning_0")
-        screen.add_widget(self.lf[0])
-        screen.bind(on_pre_enter=self.learn.start)
-        self.sm.add_widget(screen)
-
-        screen = Screen(name="learning_1")
-        screen.add_widget(self.lf[1])
-        self.sm.add_widget(screen)
+        for i, ilf in enumerate(self.lf):
+            screen = Screen(name="learning_" + str(i))
+            screen.add_widget(ilf)
+            screen.bind(on_pre_enter=self.learn.start)
+            self.sm.add_widget(screen)
 
         screen = Screen(name="details")
         screen.add_widget(self.df)
