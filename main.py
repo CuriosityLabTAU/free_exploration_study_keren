@@ -2,7 +2,9 @@
 # -*- coding: utf-8 -*-
 from cg_graphics_audio import *
 from cei2 import *
-from DetailsForm import *
+from details_form_personal import *
+from details_form_faculty import *
+from details_form_grades import *
 from consent_form import ConsentForm
 from framing_form import FramingForm
 from learning_form import *
@@ -24,7 +26,9 @@ class CuriosityApp(App):
     cf = None
     qf = None
     lf = None
-    df = None
+    dfp = None
+    dff = None
+    dfg = None
     ff = None
     framing_form = None
     score = None
@@ -58,7 +62,9 @@ class CuriosityApp(App):
         for i in range(1, self.learn.max_number_questions / self.lf[0].q_per_page):
             self.lf.append(LearningForm(self))
 
-        self.df = DetailsForm(self)
+        self.dfp = DetailsFormPersonal(self)
+        self.dff = DetailsFormFaculty(self)
+        self.dfg = DetailsFormGrades(self)
         self.ff = FinalForm(self)
 
         self.score = CuriosityScore(self.cg.game_duration,
@@ -71,27 +77,35 @@ class CuriosityApp(App):
         screen.add_widget(self.cf)
         self.sm.add_widget(screen)
 
-        screen = Screen(name='framing')
-        screen.add_widget(self.framing_form)
+        # screen = Screen(name='framing')
+        # screen.add_widget(self.framing_form)
+        # self.sm.add_widget(screen)
+        #
+        # screen = Screen(name='thegame')
+        # screen.add_widget(self.cg.the_widget)
+        # self.sm.add_widget(screen)
+        #
+        # for kqf in range(0, len(self.qf)):
+        #     screen = Screen(name="question"+str(kqf))
+        #     screen.add_widget(self.qf[kqf])
+        #     self.sm.add_widget(screen)
+        #
+        # for i, ilf in enumerate(self.lf):
+        #     screen = Screen(name="learning_" + str(i))
+        #     screen.add_widget(ilf)
+        #     screen.bind(on_pre_enter=self.learn.start)
+        #     self.sm.add_widget(screen)
+
+        screen = Screen(name="details_personal")
+        screen.add_widget(self.dfp)
         self.sm.add_widget(screen)
 
-        screen = Screen(name='thegame')
-        screen.add_widget(self.cg.the_widget)
+        screen = Screen(name="details_faculty")
+        screen.add_widget(self.dff)
         self.sm.add_widget(screen)
 
-        for kqf in range(0, len(self.qf)):
-            screen = Screen(name="question"+str(kqf))
-            screen.add_widget(self.qf[kqf])
-            self.sm.add_widget(screen)
-
-        for i, ilf in enumerate(self.lf):
-            screen = Screen(name="learning_" + str(i))
-            screen.add_widget(ilf)
-            screen.bind(on_pre_enter=self.learn.start)
-            self.sm.add_widget(screen)
-
-        screen = Screen(name="details")
-        screen.add_widget(self.df)
+        screen = Screen(name="details_grades")
+        screen.add_widget(self.dfg)
         self.sm.add_widget(screen)
 
         screen = Screen(name="final")
@@ -107,7 +121,9 @@ class CuriosityApp(App):
         self.cf.start(self)
         for qf in self.qf:
             qf.start()
-        self.df.start()
+        self.dfp.start()
+        self.dff.start()
+        self.dfg.start()
         self.score.init_score()
 
         self.choose_condition()

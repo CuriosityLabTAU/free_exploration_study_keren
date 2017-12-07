@@ -9,18 +9,13 @@ from kivy_communication.logged_widgets import *
 from kivy.storage.jsonstore import JsonStore
 
 
-class DetailsForm(BoxLayout):
-    what_to_include = ['age', 'email', 'gender', 'faculty']
-
+class DetailsFormFaculty(BoxLayout):
     details = {}
     the_app = None
-    age_text = None
     faculty_spinner = None
-    gender_spinner = None
-    email_text = None
 
     def __init__(self, the_app):
-        super(DetailsForm, self).__init__()
+        super(DetailsFormFaculty, self).__init__()
         self.the_app = the_app
 
         with self.canvas.before:
@@ -55,25 +50,6 @@ class DetailsForm(BoxLayout):
         # definitions of all the GUI
         y_size = 0.2
 
-        self.age_text = LoggedTextInput(size_hint_x=0.5, font_size=40, input_filter='int', size_hint_y=y_size)
-        self.age_text.bind(text=self.age_text.on_text_change)
-        self.age_text.name = 'age'
-
-        self.email_text = LoggedTextInput(size_hint_x=2, font_size=32, size_hint_y=y_size)
-        self.email_text.bind(text=self.email_text.on_text_change)
-        self.email_text.name = 'email'
-
-        print(dict['Gender']['Genders'])
-        self.gender_spinner = LoggedSpinner(text=dict['Gender']['default'],
-                                            values=dict['Gender']['Genders'],
-                                            size=(50, 50),
-                                            font_name="fonts/the_font.ttf",
-                                            font_size=40,
-                                            size_hint_y=y_size,
-                                            option_cls=MySpinnerOption)
-        self.gender_spinner.name = 'gender'
-        self.gender_spinner.bind(text=self.gender_spinner.on_spinner_text)
-
         temp_faculty = []
         for f in range(len(dict['Faculty']['Faculties'])):
             if f == 0:
@@ -85,15 +61,35 @@ class DetailsForm(BoxLayout):
         dict['Faculty']['Faculties'] = temp_faculty
 
         # faculty spinner
-        self.faculty_spinner = LoggedSpinner(text=dict['Faculty']['default'],
+        self.faculty_spinner_1st = LoggedSpinner(text=dict['Faculty']['default'],
             values=dict['Faculty']['Faculties'],
             size=(50, 50),
             font_name="fonts/the_font.ttf",
             font_size=30,
             option_cls=MySpinnerOption,
             size_hint_y=y_size)
-        self.faculty_spinner.name = 'faculty'
-        self.faculty_spinner.bind(text=self.faculty_spinner.on_spinner_text)
+        self.faculty_spinner_1st.name = 'faculty_1st'
+        self.faculty_spinner_1st.bind(text=self.faculty_spinner_1st.on_spinner_text)
+
+        self.faculty_spinner_2nd = LoggedSpinner(text=dict['Faculty']['default'],
+            values=dict['Faculty']['Faculties'],
+            size=(50, 50),
+            font_name="fonts/the_font.ttf",
+            font_size=30,
+            option_cls=MySpinnerOption,
+            size_hint_y=y_size)
+        self.faculty_spinner_2nd.name = 'faculty_2nd'
+        self.faculty_spinner_2nd.bind(text=self.faculty_spinner_2nd.on_spinner_text)
+
+        self.faculty_spinner_3rd = LoggedSpinner(text=dict['Faculty']['default'],
+            values=dict['Faculty']['Faculties'],
+            size=(50, 50),
+            font_name="fonts/the_font.ttf",
+            font_size=30,
+            option_cls=MySpinnerOption,
+            size_hint_y=y_size)
+        self.faculty_spinner_3rd.name = 'faculty_3rd'
+        self.faculty_spinner_3rd.bind(text=self.faculty_spinner_3rd.on_spinner_text)
 
         end_button = Button(background_color=[0, 0.71, 1, 1],
                             background_normal="",
@@ -117,54 +113,32 @@ class DetailsForm(BoxLayout):
         layout.add_widget(end_button)
         layout.add_widget(BoxLayout(size_hint_x=0.1, size_hint_y=y_size))
 
-        if 'age' in self.what_to_include:
-            layout.add_widget(self.age_text)
-            layout.add_widget(
-                Label(text=dict['Age'], font_size=30,
-                      font_name="fonts/the_font.ttf", halign='right',
-                      size_hint_y=y_size,
-                      color=[0,0,0,1]))
-        else:
-            layout.add_widget(BoxLayout())
-            layout.add_widget(BoxLayout())
+        layout.add_widget(self.faculty_spinner_3rd)
+        layout.add_widget(
+            Label(text=u'תישילש תופידע',
+                  font_size=30, font_name="fonts/the_font.ttf",
+                  halign='right', size_hint_x=1.5,
+                  color=[0, 0, 0, 1]))
 
-        if 'email' in self.what_to_include:
-            layout.add_widget(self.email_text)
-            # layout.add_widget(BoxLayout(size_hint_x=1, size_hint_y=1))
-            layout.add_widget(
-                Label(text=dict['Email'], font_size=30,
-                      font_name="fonts/the_font.ttf", halign='right',
-                      size_hint_y=y_size,
-                      color=[0, 0, 0, 1]))
+        layout.add_widget(self.faculty_spinner_2nd)
+        layout.add_widget(
+            Label(text=u'הינש תופידע',
+                  font_size=30, font_name="fonts/the_font.ttf",
+                  halign='right', size_hint_x=1.5,
+                  color=[0, 0, 0, 1]))
 
-        else:
-            layout.add_widget(BoxLayout())
-            layout.add_widget(BoxLayout())
-
-        if 'faculty' in self.what_to_include:
-            layout.add_widget(self.faculty_spinner)
-            layout.add_widget(
-                Label(text=dict['Faculty']['text'],
-                      font_size=30, font_name="fonts/the_font.ttf",
-                      halign='right', size_hint_x=1.5,
-                      color=[0, 0, 0, 1]))
-        else:
-            layout.add_widget(BoxLayout())
-            layout.add_widget(BoxLayout(size_hint_x=1.5))
+        layout.add_widget(self.faculty_spinner_1st)
+        layout.add_widget(
+            Label(text=dict['Faculty']['text'],
+                  font_size=30, font_name="fonts/the_font.ttf",
+                  halign='right', size_hint_x=1.5,
+                  color=[0, 0, 0, 1]))
 
     # === second line ===
         layout.add_widget(BoxLayout(size_hint_y=y_size))
         layout.add_widget(BoxLayout(size_hint_x=0.1, size_hint_y=y_size))
-        if 'gender' in self.what_to_include:
-            layout.add_widget(self.gender_spinner)
-            layout.add_widget(
-                Label(text=dict['Gender']['text'], font_size=30,
-                      font_name="fonts/the_font.ttf", halign='right',
-                      size_hint_y=y_size,
-                      color=[0, 0, 0, 1]))
-        else:
-            layout.add_widget(BoxLayout())
-            layout.add_widget(BoxLayout(size_hint_y=y_size))
+        layout.add_widget(BoxLayout())
+        layout.add_widget(BoxLayout(size_hint_y=y_size))
 
         layout.add_widget(BoxLayout())
         layout.add_widget(BoxLayout())
@@ -204,8 +178,7 @@ class DetailsForm(BoxLayout):
         self.start()
 
     def start(self):
-        self.email_text.text = ""
-        self.age_text.text = ""
+        pass
 
     def _update_rect(self, instance, value):
         self.rect.pos = instance.pos
@@ -219,9 +192,9 @@ class DetailsForm(BoxLayout):
                 instance.text = value[-1] + instance.the_text[:-1]
 
     def save(self, instance):
-        details = {'age': self.age_text.text,
-                   'gender': self.gender_spinner.text,
-                   'faculty': self.faculty_spinner.text}
+        details = {'faculty_1st': self.faculty_spinner_1st.text,
+                   'faculty_2nd': self.faculty_spinner_2nd.text,
+                   'faculty_3rd': self.faculty_spinner_3rd.text}
         self.the_app.score.add_details(details)
 
     def next(self, pars):
