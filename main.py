@@ -12,6 +12,8 @@ from curiosity_score import *
 from kivy_communication import KL
 
 
+# version 2.0
+
 class CuriosityApp(App):
     sm = None
     cg = None
