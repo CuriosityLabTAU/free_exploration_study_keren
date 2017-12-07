@@ -4,6 +4,7 @@ from cg_graphics_audio import *
 from cei2 import *
 from DetailsForm import *
 from consent_form import ConsentForm
+from framing_form import FramingForm
 from learning_form import *
 from final_form import FinalForm
 from kivy.app import App
@@ -14,6 +15,9 @@ from kivy_communication import KL
 
 # version 2.0
 
+conditions = ['no_framing/no_stop', 'framing/no_stop', 'no_framing/stop', 'framing/stop']
+
+
 class CuriosityApp(App):
     sm = None
     cg = None
@@ -22,12 +26,15 @@ class CuriosityApp(App):
     lf = None
     df = None
     ff = None
+    framing_form = None
     score = None
     float_layout = None
 
     cei2 = None
     bfi = None
     learn = None
+
+    the_condition = ''
 
     def build(self):
         # initialize logger
@@ -36,6 +43,7 @@ class CuriosityApp(App):
 
         self.cg = CuriosityGame(self)
         self.cf = ConsentForm(self)
+        self.framing_form = FramingForm(self)
 
         self.cei2 = CEI2('questions.json')
         self.bfi  = CEI2('more_questions.json')
@@ -61,6 +69,10 @@ class CuriosityApp(App):
 
         screen = Screen(name='consent')
         screen.add_widget(self.cf)
+        self.sm.add_widget(screen)
+
+        screen = Screen(name='framing')
+        screen.add_widget(self.framing_form)
         self.sm.add_widget(screen)
 
         screen = Screen(name='thegame')
@@ -97,7 +109,20 @@ class CuriosityApp(App):
             qf.start()
         self.df.start()
         self.score.init_score()
+
+        self.choose_condition()
+
         self.sm.current = "consent"
+
+    def choose_condition(self):
+        self.the_condition = random.choice(conditions)
+        KL.log.insert(action=LogAction.data, obj='condition', comment=self.the_condition)
+
+        if 'no_framing' in self.the_condition:
+            self.framing_form.framing_text.text = ''
+        else:
+            self.framing_form.framing_text.text = u'תונרקס קחשמ וניה אבה ךסמה'
+
 
     def on_pause(self):
         return True

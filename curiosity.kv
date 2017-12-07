@@ -94,6 +94,58 @@
 
         BoxLayout:
 
+<FramingForm>:
+    title:title
+    button:button
+    framing_text:framing_text
+    canvas:
+        Rectangle:
+            source: 'back3.png'
+            size: self.size
+
+	BoxLayout:
+	    orientation: "vertical"
+	    BoxLayout:
+        Label:
+            id:title
+            font_size: 48
+            font_name: "fonts/the_font.ttf"
+        BoxLayout:
+            size_hint_y:6
+        BoxLayout:
+            orientation: "vertical"
+            size_hint_y:28
+            Label:
+                id: framing_text
+                font_size: 48
+                font_name: "fonts/the_font.ttf"
+                color: [0,0,0,1]
+        BoxLayout:
+            size_hint_y:2
+        BoxLayout:
+            size_hint_y: 1
+            BoxLayout:
+                size_hint_x:0.2
+            ConsentButton:
+                name: 'consent_button'
+                the_form: root
+                size_hint_x:0.3
+                size_hint_y:2
+                id:button
+                font_name: "fonts/the_font.ttf"
+                font_size: 30
+                background_color: (0, 0.71, 1., 1)
+                background_normal: ""
+            BoxLayout:
+
+            Label:
+                size_hint_x:0.4
+                font_name: "fonts/the_font.ttf"
+                font_size: 30
+                color: [0,0,0,1]
+
+        BoxLayout:
+
 <AnswerButton>:
     background_radio_down: "checkbox_active.png"
     background_radio_normal: "checkbox_inactive.png"

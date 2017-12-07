@@ -66,10 +66,7 @@ class ConsentForm(BoxLayout):
 
     def contin(self):
         if self.checkbox_agree.active:
-            # the next screen is the game
-            # start the clock and then transition
-            self.the_app.cg.start()
-            self.the_app.sm.current = self.the_app.sm.next()#"thegame"
+            self.the_app.sm.current = self.the_app.sm.next()
         else:
             print("pls mark checkbox")
 
