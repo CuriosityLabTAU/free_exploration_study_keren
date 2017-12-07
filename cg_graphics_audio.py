@@ -77,7 +77,7 @@ class CuriosityGame:
     the_widget = None
     is_playing = False
     the_end = False
-    game_duration = 60
+    game_duration = 120
 
     def __init__(self, parent_app):
         self.the_app = parent_app
