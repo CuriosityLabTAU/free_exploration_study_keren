@@ -9,6 +9,7 @@ from kivy.graphics import Rectangle
 from kivy.uix.label import Label
 from kivy.clock import Clock
 from kivy_communication.kivy_logger import *
+from kivy_communication.logged_widgets import *
 from hebrew_management import HebrewManagement
 
 
@@ -163,14 +164,22 @@ class CuriosityGame:
             for l in self.the_widget.cg_lbl:
                 l.text = ''
 
-    def end_game(self, dt):
+    def end_game(self, dt=None):
         self.the_end = True
         if not self.is_playing:
             self.the_app.sm.current = self.the_app.sm.next()
 
+    def set_stop_button(self, the_condition):
+        if 'no_stop' in the_condition:
+            self.the_widget.stop_button.background_color = (0,0,0,0)
+            self.the_widget.stop_button.disabled = True
+        else:
+            self.the_widget.stop_button.bind(on_press=self.end_game)
+
 
 class CuriosityWidget(FloatLayout):
     cg_lbl = None
+    stop_button = LoggedButton()
 
     def __init__(self):
         super(CuriosityWidget, self).__init__()
@@ -182,6 +191,14 @@ class CuriosityWidget(FloatLayout):
             self.cg_lbl.append(Label(font_name='fonts/the_font.ttf', halign='right', text='',
                             pos=(10, 10 + 75 * k), font_size='48sp', size_hint_y=0.1, color=[0,0.1,0.5,1.0]))
             self.add_widget(self.cg_lbl[-1])
+
+        self.stop_button.text = u'םויס'
+        self.stop_button.font_name='fonts/the_font.ttf'
+        self.stop_button.name = 'stop_button'
+        self.stop_button.size_hint_x = 0.1
+        self.stop_button.size_hint_y = 0.1
+        self.stop_button.background_color = (0, 0.71, 1, 1)
+        self.add_widget(self.stop_button)
 
     def _update_rect(self, instance, value):
         self.rect.pos = instance.pos

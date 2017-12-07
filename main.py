@@ -118,10 +118,9 @@ class CuriosityApp(App):
         self.the_condition = random.choice(conditions)
         KL.log.insert(action=LogAction.data, obj='condition', comment=self.the_condition)
 
-        if 'no_framing' in self.the_condition:
-            self.framing_form.framing_text.text = ''
-        else:
-            self.framing_form.framing_text.text = u'תונרקס קחשמ וניה אבה ךסמה'
+        self.framing_form.set_text(self.the_condition)
+        self.cg.set_stop_button(self.the_condition)
+
 
 
     def on_pause(self):

@@ -54,3 +54,8 @@ class FramingForm(BoxLayout):
     def get_color_from_hex(self, color):
         return get_color_from_hex(color)
 
+    def set_text(self, the_condition):
+        if 'no_framing' in the_condition:
+            self.framing_text.text = ''
+        else:
+            self.framing_text.text = u'תונרקס קחשמ וניה אבה ךסמה'
