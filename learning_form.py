@@ -69,7 +69,10 @@ class Learning():
                 ifl.next_page = "details"
                 ifl.start(self.page_questions[-1])
             elif i < len(self.page_questions):
-                ifl.next_page = "learning_" + str(i+1)
+                if i < (len(self.the_app.lf) - 1):
+                    ifl.next_page = "learning_" + str(i+1)
+                else:
+                    ifl.next_page = "details"
                 ifl.start(self.page_questions[i])
 
 
