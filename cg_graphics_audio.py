@@ -194,6 +194,7 @@ class CuriosityWidget(FloatLayout):
 
         self.stop_button.text = u'םויס'
         self.stop_button.font_name='fonts/the_font.ttf'
+        self.stop_button.font_size = '48sp'
         self.stop_button.name = 'stop_button'
         self.stop_button.size_hint_x = 0.1
         self.stop_button.size_hint_y = 0.1

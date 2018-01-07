@@ -56,6 +56,6 @@ class FramingForm(BoxLayout):
 
     def set_text(self, the_condition):
         if 'no_framing' in the_condition:
-            self.framing_text.text = ''
+            self.framing_text.text = u'אבה ךסמל ךשמה'
         else:
-            self.framing_text.text = u'תונרקס קחשמ וניה אבה ךסמה'
+            self.framing_text.text = u'תונרקס ךסמל ךשמה'
