@@ -79,6 +79,7 @@ class CuriosityGame:
     is_playing = False
     the_end = False
     game_duration = 120
+    game_clock = None
 
     def __init__(self, parent_app):
         self.the_app = parent_app
@@ -132,14 +133,13 @@ class CuriosityGame:
     def start(self):
         # set the timer of the game
         print('Starting clock...')
-        Clock.schedule_once(self.end_game, self.game_duration)
+        self.game_clock = Clock.schedule_once(self.end_game, self.game_duration)
         for k,v in self.items.items():
             v.current = 1
             v.pos = v.base_pos
         self.the_end = False
         self.is_playing = False
         self.the_app.score.start_game()
-
 
     def on_play(self, name, par):
         self.items[name].on_play()
@@ -165,6 +165,7 @@ class CuriosityGame:
                 l.text = ''
 
     def end_game(self, dt=None):
+        Clock.unschedule(self.game_clock)
         self.the_end = True
         if not self.is_playing:
             self.the_app.sm.current = self.the_app.sm.next()
@@ -173,7 +174,11 @@ class CuriosityGame:
         if 'no_stop' in the_condition:
             self.the_widget.stop_button.background_color = (0,0,0,0)
             self.the_widget.stop_button.disabled = True
+            self.the_widget.stop_button.text = ''
         else:
+            self.the_widget.stop_button.text = u'םויס'
+            self.the_widget.stop_button.background_color = (0, 0.71, 1, 1)
+            self.the_widget.stop_button.disabled = False
             self.the_widget.stop_button.bind(on_press=self.end_game)
 
 

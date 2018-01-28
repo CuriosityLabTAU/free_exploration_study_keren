@@ -7,6 +7,14 @@ from kivy.uix.gridlayout import GridLayout
 from kivy.uix.label import Label
 from kivy_communication.logged_widgets import *
 from kivy.storage.jsonstore import JsonStore
+from kivy.uix.screenmanager import Screen
+
+
+class DetailsScreenPersonal(Screen):
+
+    def add_widget(self, widget, index=0):
+        super(Screen, self).add_widget(widget, index)
+        self.bind(on_enter=widget.on_enter)
 
 
 class DetailsFormPersonal(BoxLayout):
@@ -62,6 +70,8 @@ class DetailsFormPersonal(BoxLayout):
         self.email_text = LoggedTextInput(size_hint_x=2, font_size=32, size_hint_y=y_size)
         self.email_text.bind(text=self.email_text.on_text_change)
         self.email_text.name = 'email'
+
+        self.gender_default = dict['Gender']['default']
 
         print(dict['Gender']['Genders'])
         self.gender_spinner = LoggedSpinner(text=dict['Gender']['default'],
@@ -174,6 +184,10 @@ class DetailsFormPersonal(BoxLayout):
         self.start()
 
     def start(self):
+        pass
+
+    def on_enter(self, *args):
+        self.gender_spinner.text = self.gender_default
         self.email_text.text = ""
         self.age_text.text = ""
 

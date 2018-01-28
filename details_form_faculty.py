@@ -7,6 +7,14 @@ from kivy.uix.gridlayout import GridLayout
 from kivy.uix.label import Label
 from kivy_communication.logged_widgets import *
 from kivy.storage.jsonstore import JsonStore
+from kivy.uix.screenmanager import Screen
+
+
+class DetailsScreenFaculty(Screen):
+
+    def add_widget(self, widget, index=0):
+        super(Screen, self).add_widget(widget, index)
+        self.bind(on_enter=widget.on_enter)
 
 
 class DetailsFormFaculty(BoxLayout):
@@ -59,6 +67,8 @@ class DetailsFormFaculty(BoxLayout):
             else:
                 temp_faculty.append(dict['Faculty']['Faculties'][f])
         dict['Faculty']['Faculties'] = temp_faculty
+
+        self.faculty_default = dict['Faculty']['default']
 
         # faculty spinner
         self.faculty_spinner_1st = LoggedSpinner(text=dict['Faculty']['default'],
@@ -179,6 +189,12 @@ class DetailsFormFaculty(BoxLayout):
 
     def start(self):
         pass
+
+    def on_enter(self, *args):
+        self.faculty_spinner_1st.text = self.faculty_default
+        self.faculty_spinner_2nd.text = self.faculty_default
+        self.faculty_spinner_3rd.text = self.faculty_default
+
 
     def _update_rect(self, instance, value):
         self.rect.pos = instance.pos

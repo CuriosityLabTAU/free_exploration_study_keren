@@ -7,6 +7,14 @@ from kivy.uix.gridlayout import GridLayout
 from kivy.uix.label import Label
 from kivy_communication.logged_widgets import *
 from kivy.storage.jsonstore import JsonStore
+from kivy.uix.screenmanager import Screen
+
+
+class DetailsScreenGrades(Screen):
+
+    def add_widget(self, widget, index=0):
+        super(Screen, self).add_widget(widget, index)
+        self.bind(on_enter=widget.on_enter)
 
 
 class DetailsFormGrades(BoxLayout):
@@ -142,6 +150,9 @@ class DetailsFormGrades(BoxLayout):
         self.start()
 
     def start(self):
+        pass
+
+    def on_enter(self, *args):
         self.SAT_text.text = ""
         self.bagrut_text.text = ""
 

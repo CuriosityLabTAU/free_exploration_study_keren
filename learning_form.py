@@ -63,16 +63,16 @@ class Learning():
                 k_page_ques = 0
 
         if len(self.page_questions) == 0:
-            self.the_app.sm.current = "details"
+            self.the_app.sm.current = "details_personal"
         for i, ifl in enumerate(self.the_app.lf):
             if i == (len(self.page_questions)-1):
-                ifl.next_page = "details"
+                ifl.next_page = "details_personal"
                 ifl.start(self.page_questions[-1])
             elif i < len(self.page_questions):
                 if i < (len(self.the_app.lf) - 1):
                     ifl.next_page = "learning_" + str(i+1)
                 else:
-                    ifl.next_page = "details"
+                    ifl.next_page = "details_personal"
                 ifl.start(self.page_questions[i])
 
 

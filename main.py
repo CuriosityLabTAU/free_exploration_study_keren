@@ -100,7 +100,8 @@ class CuriosityApp(App):
         screen.add_widget(self.dfp)
         self.sm.add_widget(screen)
 
-        screen = Screen(name="details_faculty")
+        screen = DetailsScreenFaculty(name="details_faculty")
+        # screen = Screen(name="details_faculty")
         screen.add_widget(self.dff)
         self.sm.add_widget(screen)
 
